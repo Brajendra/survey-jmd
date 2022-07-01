@@ -5,6 +5,8 @@ import com.reliance.retail.nps.repository.QuestionRepository;
 import com.reliance.retail.nps.service.QuestionService;
 import com.reliance.retail.nps.service.dto.QuestionDTO;
 import com.reliance.retail.nps.service.mapper.QuestionMapper;
+
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,5 +82,10 @@ public class QuestionServiceImpl implements QuestionService {
     public void delete(Long id) {
         log.debug("Request to delete Question : {}", id);
         questionRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<List<QuestionDTO>> findQuestionByCampaignId(Long id) {
+        return questionRepository.findByCampaignId(id).map(questionMapper::toDto);
     }
 }

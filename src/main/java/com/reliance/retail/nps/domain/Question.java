@@ -10,6 +10,9 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
  * A Question.
@@ -17,6 +20,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "question")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@EntityListeners(AuditingEntityListener.class)
 public class Question implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,14 +42,14 @@ public class Question implements Serializable {
 
     @Column(name = "jhi_order")
     private Integer order;
-
+    @CreatedDate
     @Column(name = "created_at")
     private LocalDate createdAt;
-
+    @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDate updatedAt;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "question" }, allowSetters = true)
     private Set<Answer> answers = new HashSet<>();

@@ -1,11 +1,20 @@
 package com.reliance.retail.nps.service.impl;
 
+import com.reliance.retail.nps.domain.CampaignLink;
 import com.reliance.retail.nps.domain.UserAnswers;
+import com.reliance.retail.nps.repository.CampaignLinkRepository;
 import com.reliance.retail.nps.repository.UserAnswersRepository;
 import com.reliance.retail.nps.service.UserAnswersService;
 import com.reliance.retail.nps.service.dto.UserAnswersDTO;
+import com.reliance.retail.nps.service.dto.UserCampaignResponseDetailsDTO;
 import com.reliance.retail.nps.service.mapper.UserAnswersMapper;
+
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import com.reliance.retail.nps.web.rest.errors.BadRequestAlertException;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -24,11 +33,16 @@ public class UserAnswersServiceImpl implements UserAnswersService {
 
     private final UserAnswersRepository userAnswersRepository;
 
+    private static final String ENTITY_NAME = "userResponse";
+
     private final UserAnswersMapper userAnswersMapper;
 
-    public UserAnswersServiceImpl(UserAnswersRepository userAnswersRepository, UserAnswersMapper userAnswersMapper) {
+    private final CampaignLinkRepository campaignLinkRepository;
+
+    public UserAnswersServiceImpl(UserAnswersRepository userAnswersRepository, UserAnswersMapper userAnswersMapper, CampaignLinkRepository campaignLinkRepository) {
         this.userAnswersRepository = userAnswersRepository;
         this.userAnswersMapper = userAnswersMapper;
+        this.campaignLinkRepository = campaignLinkRepository;
     }
 
     @Override
@@ -80,5 +94,43 @@ public class UserAnswersServiceImpl implements UserAnswersService {
     public void delete(Long id) {
         log.debug("Request to delete UserAnswers : {}", id);
         userAnswersRepository.deleteById(id);
+    }
+
+
+    @Override
+    @Transactional
+    public boolean saveResponse(UserCampaignResponseDetailsDTO responseDetails) {
+
+        validateRequestData(responseDetails);
+
+        responseDetails.getCampaignLink().setAttemptQuestionCount(responseDetails.getAttemptQuestionCount());
+
+        final CampaignLink savedCampaignLink = campaignLinkRepository.save(responseDetails.getCampaignLink());
+        if (responseDetails.getUserAnswers() != null && !responseDetails.getUserAnswers().isEmpty()) {
+            List<UserAnswers> userAnswers = responseDetails.getUserAnswers().stream().map(userAnswersDTO -> {
+                userAnswersDTO.setCampaignLinkId(savedCampaignLink.getId());
+                return userAnswersMapper.toEntity(userAnswersDTO);
+            }).collect(Collectors.toList());
+            userAnswersRepository.saveAll(userAnswers);
+        }
+        return true;
+    }
+
+
+    private void validateRequestData(UserCampaignResponseDetailsDTO responseDetails) {
+
+        if(StringUtils.isEmpty(responseDetails.getCode() )) {
+            throw new BadRequestAlertException("Campaign Code Required", ENTITY_NAME, "CampaignNUll");
+        }
+        CampaignLink campaignLink =  campaignLinkRepository.findByCode(responseDetails.getCode()).get();
+        if(campaignLink == null) {
+            throw new BadRequestAlertException("Campaign Code is not valid", ENTITY_NAME, "CampaignNotyValid");
+        }
+        responseDetails.setCampaignLink(campaignLink);
+
+        boolean exist =  userAnswersRepository.existsByCampaignLinkId(campaignLink.getId()).get();
+        if(exist) {
+            throw new BadRequestAlertException("Response already saved", ENTITY_NAME, "ResponseSaved");
+        }
     }
 }

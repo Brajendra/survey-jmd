@@ -3,6 +3,7 @@ package com.reliance.retail.nps.web.rest;
 import com.reliance.retail.nps.repository.CampaignRepository;
 import com.reliance.retail.nps.service.CampaignService;
 import com.reliance.retail.nps.service.dto.CampaignDTO;
+import com.reliance.retail.nps.service.dto.CampaignDetailDTO;
 import com.reliance.retail.nps.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -179,5 +180,19 @@ public class CampaignResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+
+    /**
+     * {@code GET  /campaigns/:id} : get the "id" campaign.
+     *
+     * @param id the id of the campaignDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the campaignDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/campaign/{code}")
+    public ResponseEntity<CampaignDetailDTO> getCampaigns(@PathVariable String code) {
+        log.debug("REST request to get Campaign : {}", code);
+        Optional<CampaignDetailDTO> campaignDTO = campaignService.findOneByCode(code);
+        return ResponseUtil.wrapOrNotFound(campaignDTO);
     }
 }

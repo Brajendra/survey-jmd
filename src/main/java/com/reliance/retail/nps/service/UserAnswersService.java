@@ -2,6 +2,8 @@ package com.reliance.retail.nps.service;
 
 import com.reliance.retail.nps.service.dto.UserAnswersDTO;
 import java.util.Optional;
+
+import com.reliance.retail.nps.service.dto.UserCampaignResponseDetailsDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -55,4 +57,6 @@ public interface UserAnswersService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    boolean saveResponse(UserCampaignResponseDetailsDTO userCampaignResponseDetails);
 }

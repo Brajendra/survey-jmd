@@ -3,6 +3,7 @@ package com.reliance.retail.nps.web.rest;
 import com.reliance.retail.nps.repository.UserAnswersRepository;
 import com.reliance.retail.nps.service.UserAnswersService;
 import com.reliance.retail.nps.service.dto.UserAnswersDTO;
+import com.reliance.retail.nps.service.dto.UserCampaignResponseDetailsDTO;
 import com.reliance.retail.nps.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -177,5 +178,16 @@ public class UserAnswersResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @PostMapping("/user-answers-response")
+    public ResponseEntity<Boolean> createUserAnswers(@RequestBody UserCampaignResponseDetailsDTO userCampaignResponseDetails) throws URISyntaxException {
+        log.debug("REST request to save UserCampaignResponseDetails : {}", userCampaignResponseDetails);
+
+        Boolean result = userAnswersService.saveResponse(userCampaignResponseDetails);
+        return ResponseEntity
+            .created(new URI("/api/user-answers-response" +result))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.toString()))
+            .body(result);
     }
 }

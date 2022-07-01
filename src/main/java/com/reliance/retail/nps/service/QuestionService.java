@@ -1,6 +1,8 @@
 package com.reliance.retail.nps.service;
 
 import com.reliance.retail.nps.service.dto.QuestionDTO;
+
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -55,4 +57,6 @@ public interface QuestionService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    Optional<List<QuestionDTO>> findQuestionByCampaignId(Long id);
 }
