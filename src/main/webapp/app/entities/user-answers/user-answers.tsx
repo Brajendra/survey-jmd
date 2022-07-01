@@ -148,7 +148,7 @@ export const UserAnswers = (props: RouteComponentProps<{ url: string }>) => {
                         {userAnswers.id}
                       </Button>
                     </td>
-                    <td>{userAnswers.campaignLinkId}</td>
+                    <td>{userAnswers.campaignLinkId ? <Link to={`/campaign-link/${userAnswers.campaignLinkId}`}>{userAnswers.campaignLinkId}</Link> : ''}</td>
                     <td>{userAnswers.answers}</td>
                     <td>
                       {userAnswers.createdAt ? (
