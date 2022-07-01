@@ -1,0 +1,111 @@
+
+application {
+  config {
+    baseName NPSSurvey,
+    applicationType monolith,
+    packageName com.reliance.retail.nps,
+    authenticationType jwt,
+    devDatabaseType postgresql,
+    prodDatabaseType postgresql,
+    clientPackageManager npm
+    buildTool maven,
+    clientFramework react,
+    enableSwaggerCodegen true
+  }
+  entities *
+  dto * with mapstruct
+  paginate * with infinite-scroll
+  service all with serviceImpl
+}
+
+entity Campaign {
+	name String required,
+    isActive  Boolean,
+    createdBy String,
+    startDate LocalDate
+    endDate  LocalDate,
+	createdAt  LocalDate,
+    updatedAt  LocalDate,
+    actor ActorType,
+    eventType EventType,
+    channel ChannelType
+}
+
+entity CampaignLink {
+	code String required,
+    attemptQuestionCount Integer,
+    eventType String,
+    eventId String,
+    userInfo String,
+    createdAt LocalDate,
+    updatedAt LocalDate,
+}
+
+enum ChannelType {
+    SMS,
+    Email,
+    WhatsApp
+}
+
+enum ActorType {
+    Customer,
+    Retailer
+}
+
+enum EventType {
+    Payment,
+    Delivery,
+    Cancel,
+    ReturnPickup,
+    ReturnReceive,
+    Refund
+}
+
+entity Question {
+    title String required,
+    type QuestionType required,
+    order Integer,
+	createdAt  LocalDate,
+    updatedAt  LocalDate
+}
+
+enum QuestionType {
+    Rating,
+    TextBox,
+    SingleSelect,
+    MultiSelect
+}
+
+entity Answer {
+    title String required,
+	createdAt  LocalDate,
+    updatedAt  LocalDate
+}
+
+entity UserAnswers {
+	campaignLinkId Long,
+    answers String,
+	createdAt  LocalDate,
+    updatedAt  LocalDate
+}
+
+relationship OneToMany {
+    Campaign{campaignLink} to CampaignLink{campaign}
+}
+
+relationship OneToMany {
+    Campaign{question} to Question{campaign}
+}
+
+relationship OneToMany {
+    Question{answer} to Answer{question}
+}
+
+
+
+
+
+
+
+
+
