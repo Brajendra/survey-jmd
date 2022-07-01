@@ -1,0 +1,11 @@
+id;title;type;jhi_order;created_at;updated_at
+1;Brand;SingleSelect;53635;2022-07-01;2022-06-30
+2;Markets America;SingleSelect;32276;2022-07-01;2022-07-01
+3;RAM;MultiSelect;60078;2022-07-01;2022-07-01
+4;Investment open-source invoice;SingleSelect;74174;2022-06-30;2022-07-01
+5;ubiquitous;TextBox;50169;2022-06-30;2022-07-01
+6;sensor;Rating;26651;2022-06-30;2022-07-01
+7;online Response;TextBox;66553;2022-07-01;2022-07-01
+8;Industrial withdrawal;MultiSelect;62319;2022-07-01;2022-07-01
+9;open-source Representative Awesome;Rating;76480;2022-07-01;2022-06-30
+10;Garden wireless;SingleSelect;67697;2022-07-01;2022-06-30

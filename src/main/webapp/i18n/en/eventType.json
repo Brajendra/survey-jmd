@@ -1,0 +1,13 @@
+{
+  "npsSurveyApp": {
+    "EventType": {
+      "null": "",
+      "Payment": "Payment",
+      "Delivery": "Delivery",
+      "Cancel": "Cancel",
+      "ReturnPickup": "ReturnPickup",
+      "ReturnReceive": "ReturnReceive",
+      "Refund": "Refund"
+    }
+  }
+}

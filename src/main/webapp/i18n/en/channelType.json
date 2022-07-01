@@ -1,0 +1,10 @@
+{
+  "npsSurveyApp": {
+    "ChannelType": {
+      "null": "",
+      "SMS": "SMS",
+      "Email": "Email",
+      "WhatsApp": "WhatsApp"
+    }
+  }
+}
