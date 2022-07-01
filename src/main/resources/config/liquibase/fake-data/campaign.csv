@@ -1,0 +1,11 @@
+id;name;is_active;created_by;start_date;end_date;created_at;updated_at;actor;event_type;channel
+1;Maine;false;payment synthesizing;2022-06-30;2022-06-30;2022-06-30;2022-06-30;Customer;Delivery;SMS
+2;payment Persevering;true;Lock;2022-07-01;2022-07-01;2022-07-01;2022-07-01;Customer;Refund;SMS
+3;Movies;true;syndicate Forward deposit;2022-06-30;2022-06-30;2022-07-01;2022-07-01;Retailer;ReturnPickup;WhatsApp
+4;Swaziland out-of-the-box override;false;Corporate Sports Montana;2022-07-01;2022-07-01;2022-06-30;2022-07-01;Customer;Refund;WhatsApp
+5;Berkshire Savings monitor;true;Lek Mexico;2022-07-01;2022-07-01;2022-06-30;2022-06-30;Customer;ReturnReceive;WhatsApp
+6;Indiana Cambridgeshire Re-contextualized;true;Customer-focused benchmark;2022-06-30;2022-07-01;2022-07-01;2022-06-30;Retailer;Delivery;Email
+7;ability;true;Buckinghamshire Brand;2022-07-01;2022-07-01;2022-06-30;2022-06-30;Retailer;Payment;Email
+8;withdrawal Bedfordshire;false;calculating bypassing;2022-06-30;2022-06-30;2022-06-30;2022-07-01;Retailer;Cancel;WhatsApp
+9;Greenland;true;Books;2022-07-01;2022-07-01;2022-06-30;2022-07-01;Customer;Refund;WhatsApp
+10;Implemented Shoes;false;Lead global foreground;2022-06-30;2022-06-30;2022-06-30;2022-07-01;Customer;ReturnPickup;WhatsApp

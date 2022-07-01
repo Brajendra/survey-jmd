@@ -1,0 +1,52 @@
+{
+  "applications": ["NPSSurvey"],
+  "changelogDate": "20220701132716",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "question",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "QuestionType",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "Rating,TextBox,SingleSelect,MultiSelect"
+    },
+    {
+      "fieldName": "order",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Question",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "answer",
+      "otherEntityRelationshipName": "question",
+      "relationshipName": "answer",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "campaign",
+      "otherEntityRelationshipName": "question",
+      "relationshipName": "campaign",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

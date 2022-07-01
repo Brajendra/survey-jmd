@@ -1,0 +1,32 @@
+{
+  "applications": ["NPSSurvey"],
+  "changelogDate": "20220701132916",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "user_answers",
+  "fields": [
+    {
+      "fieldName": "campaignLinkId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "answers",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "UserAnswers",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

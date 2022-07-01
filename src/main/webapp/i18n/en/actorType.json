@@ -1,0 +1,9 @@
+{
+  "npsSurveyApp": {
+    "ActorType": {
+      "null": "",
+      "Customer": "Customer",
+      "Retailer": "Retailer"
+    }
+  }
+}

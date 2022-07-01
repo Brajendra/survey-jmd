@@ -1,0 +1,31 @@
+{
+  "npsSurveyApp": {
+    "campaignLink": {
+      "home": {
+        "title": "Campaign Links",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Campaign Link",
+        "createOrEditLabel": "Create or edit a Campaign Link",
+        "notFound": "No Campaign Links found"
+      },
+      "created": "A new Campaign Link is created with identifier {{ param }}",
+      "updated": "A Campaign Link is updated with identifier {{ param }}",
+      "deleted": "A Campaign Link is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Campaign Link {{ id }}?"
+      },
+      "detail": {
+        "title": "Campaign Link"
+      },
+      "id": "ID",
+      "code": "Code",
+      "attemptQuestionCount": "Attempt Question Count",
+      "eventType": "Event Type",
+      "eventId": "Event Id",
+      "userInfo": "User Info",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "campaign": "Campaign"
+    }
+  }
+}
