@@ -1,9 +1,11 @@
 package com.reliance.retail.nps.service.dto;
 
+import com.reliance.retail.nps.domain.Answer;
 import com.reliance.retail.nps.domain.enumeration.QuestionType;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Set;
 import javax.validation.constraints.*;
 
 /**
@@ -26,6 +28,16 @@ public class QuestionDTO implements Serializable {
     private LocalDate updatedAt;
 
     private CampaignDTO campaign;
+
+    public Set<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(Set<Answer> answers) {
+        this.answers = answers;
+    }
+
+    private Set<Answer> answers;
 
     public Long getId() {
         return id;

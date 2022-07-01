@@ -1,8 +1,11 @@
 package com.reliance.retail.nps.service.dto;
 
+import com.reliance.retail.nps.domain.Answer;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Set;
 import javax.validation.constraints.*;
 
 /**
