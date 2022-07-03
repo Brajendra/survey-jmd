@@ -98,7 +98,7 @@ public class CampaignServiceImpl implements CampaignService {
 
         return campaignLinkRepository.findByCode(code)
             .map(campaignLink -> {
-                if(campaignLink.getCompleted()) {
+                if (campaignLink.getCompleted() != null && campaignLink.getCompleted()) {
                     throw new CampaignCompletedException();
                 } else {
                     return campaignLink;
