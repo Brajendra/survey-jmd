@@ -11,6 +11,7 @@ export interface ICampaignLink {
   createdAt?: string | null;
   updatedAt?: string | null;
   campaign?: ICampaign | null;
+  completed?: boolean | null;
 }
 
 export const defaultValue: Readonly<ICampaignLink> = {};

@@ -25,7 +25,8 @@
       "userInfo": "User Info",
       "createdAt": "Created At",
       "updatedAt": "Updated At",
-      "campaign": "Campaign"
+      "campaign": "Campaign",
+      "completed": "Completed"
     }
   }
 }

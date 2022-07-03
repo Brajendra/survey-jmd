@@ -105,6 +105,7 @@ public class UserAnswersServiceImpl implements UserAnswersService {
 
         responseDetails.getCampaignLink().setAttemptQuestionCount(responseDetails.getAttemptQuestionCount());
 
+        responseDetails.getCampaignLink().setCompleted(true);
         final CampaignLink savedCampaignLink = campaignLinkRepository.save(responseDetails.getCampaignLink());
         if (responseDetails.getUserAnswers() != null && !responseDetails.getUserAnswers().isEmpty()) {
             List<UserAnswers> userAnswers = responseDetails.getUserAnswers().stream().map(userAnswersDTO -> {

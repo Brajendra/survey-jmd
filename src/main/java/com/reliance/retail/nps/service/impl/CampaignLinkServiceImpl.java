@@ -3,6 +3,7 @@ package com.reliance.retail.nps.service.impl;
 import com.reliance.retail.nps.domain.CampaignLink;
 import com.reliance.retail.nps.repository.CampaignLinkRepository;
 import com.reliance.retail.nps.service.CampaignLinkService;
+import com.reliance.retail.nps.service.MailService;
 import com.reliance.retail.nps.service.dto.CampaignLinkDTO;
 import com.reliance.retail.nps.service.mapper.CampaignLinkMapper;
 import java.util.Optional;
@@ -27,10 +28,13 @@ public class CampaignLinkServiceImpl implements CampaignLinkService {
     private final CampaignLinkRepository campaignLinkRepository;
 
     private final CampaignLinkMapper campaignLinkMapper;
+    private final MailService mailService;
 
-    public CampaignLinkServiceImpl(CampaignLinkRepository campaignLinkRepository, CampaignLinkMapper campaignLinkMapper) {
+
+    public CampaignLinkServiceImpl(CampaignLinkRepository campaignLinkRepository, CampaignLinkMapper campaignLinkMapper, MailService mailService) {
         this.campaignLinkRepository = campaignLinkRepository;
         this.campaignLinkMapper = campaignLinkMapper;
+        this.mailService = mailService;
     }
 
     @Override
@@ -39,6 +43,7 @@ public class CampaignLinkServiceImpl implements CampaignLinkService {
         CampaignLink campaignLink = campaignLinkMapper.toEntity(campaignLinkDTO);
         campaignLink.setCode(getUniqueCode());
         campaignLink = campaignLinkRepository.save(campaignLink);
+        sendEmail(campaignLink);
         return campaignLinkMapper.toDto(campaignLink);
     }
 
@@ -101,5 +106,10 @@ public class CampaignLinkServiceImpl implements CampaignLinkService {
 
     private String getRandomString() {
         return UUID.randomUUID().toString().subSequence(0, 8).toString();
+    }
+
+
+    private void sendEmail(CampaignLink campaignLink) {
+        mailService.sendEmail(campaignLink.getUserInfo(),"NPS Survey",  campaignLink.getCode(), false, false);
     }
 }

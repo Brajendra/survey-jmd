@@ -129,6 +129,19 @@ public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait
     }
 
     @ExceptionHandler
+    public ResponseEntity<Problem> handleCampaignCompletedException(
+        com.reliance.retail.nps.service.CampaignCompletedException ex,
+        NativeWebRequest request
+    ) {
+        CampaignCompletedException problem = new CampaignCompletedException();
+        return create(
+            problem,
+            request,
+            HeaderUtil.createFailureAlert(applicationName, true, problem.getEntityName(), problem.getErrorKey(), problem.getMessage())
+        );
+    }
+
+    @ExceptionHandler
     public ResponseEntity<Problem> handleUsernameAlreadyUsedException(
         com.reliance.retail.nps.service.UsernameAlreadyUsedException ex,
         NativeWebRequest request

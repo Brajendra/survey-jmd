@@ -29,6 +29,17 @@ public class CampaignLinkDTO implements Serializable {
 
     private CampaignDTO campaign;
 
+    private Boolean isCompleted;
+
+    public Boolean getCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(Boolean completed) {
+        isCompleted = completed;
+    }
+
+
     public Long getId() {
         return id;
     }
