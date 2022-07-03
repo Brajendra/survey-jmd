@@ -32,6 +32,9 @@ public class CampaignLink implements Serializable {
     @Column(name = "code", nullable = false)
     private String code;
 
+    @Column(name = "completed")
+    private Boolean isCompleted;
+
     @Column(name = "attempt_question_count")
     private Integer attemptQuestionCount;
 
@@ -167,6 +170,20 @@ public class CampaignLink implements Serializable {
     public void setCampaign(Campaign campaign) {
         this.campaign = campaign;
     }
+
+    public Boolean getCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(Boolean completed) {
+        isCompleted = completed;
+    }
+
+    public CampaignLink completed(Boolean isCompleted) {
+        this.setCompleted(isCompleted);
+        return this;
+    }
+
 
     public CampaignLink campaign(Campaign campaign) {
         this.setCampaign(campaign);

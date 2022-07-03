@@ -11,6 +11,7 @@ import com.reliance.retail.nps.service.mapper.CampaignMapper;
 import java.util.Optional;
 
 import com.reliance.retail.nps.web.rest.errors.BadRequestAlertException;
+import com.reliance.retail.nps.web.rest.errors.CampaignCompletedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -96,6 +97,14 @@ public class CampaignServiceImpl implements CampaignService {
         log.debug("Request to get findOneByCode: {}", code);
 
         return campaignLinkRepository.findByCode(code)
+            .map(campaignLink -> {
+                if(campaignLink.getCompleted()) {
+                    throw new CampaignCompletedException();
+                } else {
+                    return campaignLink;
+                }
+
+            })
             .flatMap(campaignLink -> {
                 if(campaignLink != null) {
                     return   campaignRepository
