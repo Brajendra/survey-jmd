@@ -149,6 +149,9 @@ export const CampaignLink = (props: RouteComponentProps<{ url: string }>) => {
                   <th>
                     <Translate contentKey="npsSurveyApp.campaignLink.campaign">Campaign</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('completed')}>
+                    <Translate contentKey="npsSurveyApp.campaignLink.completed">Completed</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th />
                 </tr>
               </thead>
@@ -178,6 +181,7 @@ export const CampaignLink = (props: RouteComponentProps<{ url: string }>) => {
                     <td>
                       {campaignLink.campaign ? <Link to={`/campaign/${campaignLink.campaign.id}`}>{campaignLink.campaign.id}</Link> : ''}
                     </td>
+                    <td>{campaignLink.completed ? 'true' : 'false'}</td>
                     <td className="text-end">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`/campaign-link/${campaignLink.id}`} color="info" size="sm" data-cy="entityDetailsButton">
