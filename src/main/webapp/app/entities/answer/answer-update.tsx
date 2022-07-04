@@ -98,13 +98,12 @@ export const AnswerUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
               />
-              <ValidatedField
+              {/* <ValidatedField
                 label={translate('npsSurveyApp.answer.createdAt')}
                 id="answer-createdAt"
                 name="createdAt"
                 data-cy="createdAt"
-                editable={false}
-                disabled={true}
+                hidden={true}
                 type="date"
               />
               <ValidatedField
@@ -112,10 +111,9 @@ export const AnswerUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 id="answer-updatedAt"
                 name="updatedAt"
                 data-cy="updatedAt"
-                editable={false}
-                disabled={true}
+                hidden={true}
                 type="date"
-              />
+              /> */}
               <ValidatedField
                 id="answer-question"
                 name="question"

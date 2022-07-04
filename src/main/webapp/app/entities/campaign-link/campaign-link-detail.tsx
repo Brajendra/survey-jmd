@@ -42,7 +42,7 @@ export const CampaignLinkDetail = (props: RouteComponentProps<{ id: string }>) =
             </span>
           </dt>
           <dd>{campaignLinkEntity.attemptQuestionCount}</dd>
-          <dt>
+          {/* <dt>
             <span id="eventType">
               <Translate contentKey="npsSurveyApp.campaignLink.eventType">Event Type</Translate>
             </span>
@@ -53,7 +53,7 @@ export const CampaignLinkDetail = (props: RouteComponentProps<{ id: string }>) =
               <Translate contentKey="npsSurveyApp.campaignLink.eventId">Event Id</Translate>
             </span>
           </dt>
-          <dd>{campaignLinkEntity.eventId}</dd>
+          <dd>{campaignLinkEntity.eventId}</dd> */}
           <dt>
             <span id="userInfo">
               <Translate contentKey="npsSurveyApp.campaignLink.userInfo">User Info</Translate>
@@ -84,6 +84,10 @@ export const CampaignLinkDetail = (props: RouteComponentProps<{ id: string }>) =
             <Translate contentKey="npsSurveyApp.campaignLink.campaign">Campaign</Translate>
           </dt>
           <dd>{campaignLinkEntity.campaign ? campaignLinkEntity.campaign.id : ''}</dd>
+          <dt>
+            <Translate contentKey="npsSurveyApp.campaignLink.completed">Completed</Translate>
+          </dt>
+          <dd>{campaignLinkEntity.completed ? 'true' : 'false'}</dd>
         </dl>
         <Button tag={Link} to="/campaign-link" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

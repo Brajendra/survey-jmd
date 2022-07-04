@@ -106,6 +106,7 @@ export const CampaignUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 name="isActive"
                 data-cy="isActive"
                 check
+                checked={isNew?true:isNew}
                 type="checkbox"
               />
               <ValidatedField
@@ -135,16 +136,14 @@ export const CampaignUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 name="createdAt"
                 data-cy="createdAt"
                 type="date"
-                editable={false}
-                disabled={true}
+                hidden={true}
               />
               <ValidatedField
                 label={translate('npsSurveyApp.campaign.updatedAt')}
                 id="campaign-updatedAt"
                 name="updatedAt"
                 data-cy="updatedAt"
-                editable={false}
-                disabled={true}
+                hidden={true}
                 type="date"
               />
               <ValidatedField

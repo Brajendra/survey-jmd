@@ -12,6 +12,7 @@
         "question": "Question",
         "answer": "Answer",
         "userAnswers": "User Answers",
+        "analytics": "Analytics",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
