@@ -135,12 +135,16 @@ export const CampaignUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 name="createdAt"
                 data-cy="createdAt"
                 type="date"
+                editable={false}
+                disabled={true}
               />
               <ValidatedField
                 label={translate('npsSurveyApp.campaign.updatedAt')}
                 id="campaign-updatedAt"
                 name="updatedAt"
                 data-cy="updatedAt"
+                editable={false}
+                disabled={true}
                 type="date"
               />
               <ValidatedField

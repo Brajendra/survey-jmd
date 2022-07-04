@@ -120,6 +120,8 @@ export const QuestionUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 id="question-createdAt"
                 name="createdAt"
                 data-cy="createdAt"
+                editable={false}
+                disabled={true}
                 type="date"
               />
               <ValidatedField
@@ -127,6 +129,8 @@ export const QuestionUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 id="question-updatedAt"
                 name="updatedAt"
                 data-cy="updatedAt"
+                editable={false}
+                disabled={true}
                 type="date"
               />
               <ValidatedField

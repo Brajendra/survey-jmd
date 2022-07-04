@@ -12,7 +12,6 @@ public class CampaignLinkDTO implements Serializable {
 
     private Long id;
 
-    @NotNull
     private String code;
 
     private Integer attemptQuestionCount;

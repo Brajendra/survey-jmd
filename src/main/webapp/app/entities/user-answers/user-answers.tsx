@@ -103,11 +103,11 @@ export const UserAnswers = (props: RouteComponentProps<{ url: string }>) => {
             <FontAwesomeIcon icon="sync" spin={loading} />{' '}
             <Translate contentKey="npsSurveyApp.userAnswers.home.refreshListLabel">Refresh List</Translate>
           </Button>
-          <Link to="/user-answers/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
+          {/* <Link to="/user-answers/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
             <Translate contentKey="npsSurveyApp.userAnswers.home.createLabel">Create new User Answers</Translate>
-          </Link>
+          </Link> */}
         </div>
       </h2>
       <div className="table-responsive">
@@ -168,12 +168,12 @@ export const UserAnswers = (props: RouteComponentProps<{ url: string }>) => {
                             <Translate contentKey="entity.action.view">View</Translate>
                           </span>
                         </Button>
-                        <Button tag={Link} to={`/user-answers/${userAnswers.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
+                        {/* <Button tag={Link} to={`/user-answers/${userAnswers.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
                           <FontAwesomeIcon icon="pencil-alt" />{' '}
                           <span className="d-none d-md-inline">
                             <Translate contentKey="entity.action.edit">Edit</Translate>
                           </span>
-                        </Button>
+                        </Button> */}
                         <Button
                           tag={Link}
                           to={`/user-answers/${userAnswers.id}/delete`}
