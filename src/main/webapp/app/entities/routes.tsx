@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch } from 'react-router-dom';
+import { Switch , Route} from 'react-router-dom';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 
 import Campaign from './campaign';
@@ -19,6 +19,10 @@ export default ({ match }) => {
         <ErrorBoundaryRoute path={`${match.url}question`} component={Question} />
         <ErrorBoundaryRoute path={`${match.url}answer`} component={Answer} />
         <ErrorBoundaryRoute path={`${match.url}user-answers`} component={UserAnswers} />
+        <Route path={`${match.url}analytics`}  component={() => { 
+          window.open('http://localhost:3000/campaign_analytics');
+     return null;
+}}/>
         {/* jhipster-needle-add-route-path - JHipster will add routes here */}
       </Switch>
     </div>
