@@ -131,12 +131,12 @@ export const CampaignLink = (props: RouteComponentProps<{ url: string }>) => {
                     <Translate contentKey="npsSurveyApp.campaignLink.attemptQuestionCount">Attempt Question Count</Translate>{' '}
                     <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th className="hand" onClick={sort('eventType')}>
+                  {/* <th className="hand" onClick={sort('eventType')}>
                     <Translate contentKey="npsSurveyApp.campaignLink.eventType">Event Type</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={sort('eventId')}>
                     <Translate contentKey="npsSurveyApp.campaignLink.eventId">Event Id</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
+                  </th> */}
                   <th className="hand" onClick={sort('userInfo')}>
                     <Translate contentKey="npsSurveyApp.campaignLink.userInfo">User Info</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -165,8 +165,8 @@ export const CampaignLink = (props: RouteComponentProps<{ url: string }>) => {
                     </td>
                     <td>{campaignLink.code}</td>
                     <td>{campaignLink.attemptQuestionCount}</td>
-                    <td>{campaignLink.eventType}</td>
-                    <td>{campaignLink.eventId}</td>
+                    {/* <td>{campaignLink.eventType}</td>
+                    <td>{campaignLink.eventId}</td> */}
                     <td>{campaignLink.userInfo}</td>
                     <td>
                       {campaignLink.createdAt ? (

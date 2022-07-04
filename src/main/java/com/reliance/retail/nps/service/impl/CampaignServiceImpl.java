@@ -6,6 +6,7 @@ import com.reliance.retail.nps.domain.enumeration.QuestionType;
 import com.reliance.retail.nps.repository.AnswerRepository;
 import com.reliance.retail.nps.repository.CampaignLinkRepository;
 import com.reliance.retail.nps.repository.CampaignRepository;
+import com.reliance.retail.nps.service.CampaignExpiredException;
 import com.reliance.retail.nps.service.CampaignService;
 import com.reliance.retail.nps.service.QuestionService;
 import com.reliance.retail.nps.service.dto.CampaignDTO;
@@ -21,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Set;
 
@@ -38,14 +40,12 @@ public class CampaignServiceImpl implements CampaignService {
     private final CampaignMapper campaignMapper;
     private final QuestionService questionService;
     private final CampaignLinkRepository campaignLinkRepository;
-    private final AnswerRepository answerRepository;
 
-    public CampaignServiceImpl(CampaignRepository campaignRepository, CampaignMapper campaignMapper, QuestionService questionService, CampaignLinkRepository campaignLinkRepository, AnswerRepository answerRepository) {
+    public CampaignServiceImpl(CampaignRepository campaignRepository, CampaignMapper campaignMapper, QuestionService questionService, CampaignLinkRepository campaignLinkRepository) {
         this.campaignRepository = campaignRepository;
         this.campaignMapper = campaignMapper;
         this.questionService  = questionService;
         this.campaignLinkRepository = campaignLinkRepository;
-        this.answerRepository = answerRepository;
     }
 
     @Override
@@ -116,27 +116,36 @@ public class CampaignServiceImpl implements CampaignService {
                 if(campaignLink != null) {
                     return   campaignRepository
                         .findById(campaignLink.getCampaign().getId())
-                        .flatMap(campaign -> questionService.findQuestionByCampaignId(campaign.getId())
-                            .map(questionDTOS -> {
-                                for(QuestionDTO question: questionDTOS) {
-                                    if(question.getAnswers().isEmpty() && (question.getType() == QuestionType.MultiSelect || question.getType() == QuestionType.SingleSelect)) {
-                                        Set<Answer> answers = answerRepository.findByQuestionId(question.getId()).get();
-                                        question.setAnswers(answers);
-                                    }
-                                }
-                                return questionDTOS;
-                            })
-                            .map(questions -> {
-                                CampaignDetailDTO campaignDetails = new CampaignDetailDTO();
-                                campaignDetails.setCampaign(campaignMapper.toDto(campaign));
-                                campaignDetails.setQuestions(questions);
-                                return campaignDetails;
-                            }));
+                        .flatMap(campaign ->  {
+                            if(isCampaignActive(campaign)) {
+                                return questionService.findQuestionByCampaignId(campaign.getId())
+                                    .map(questions -> {
+                                        CampaignDetailDTO campaignDetails = new CampaignDetailDTO();
+                                        campaignDetails.setCampaign(campaignMapper.toDto(campaign));
+                                        campaignDetails.setQuestions(questions);
+                                        return campaignDetails;
+                                    });
+                            } else {
+                                throw new CampaignExpiredException();
+                            }
+                        });
                 } else {
                     throw new BadRequestAlertException("Code is Invalid", "CodeInvalid", "COdeInvalid");
                 }
             });
 
         //   return Optional.empty();
+    }
+
+    private boolean isCampaignActive(Campaign campaign) {
+        if (!campaign.getIsActive()) {
+            return false;
+        } else {
+            if (campaign.getEndDate() != null) {
+                return campaign.getEndDate().isBefore(LocalDate.now());
+            } else {
+                return true;
+            }
+        }
     }
 }

@@ -130,9 +130,9 @@ export const Question = (props: RouteComponentProps<{ url: string }>) => {
                   <th className="hand" onClick={sort('type')}>
                     <Translate contentKey="npsSurveyApp.question.type">Type</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th className="hand" onClick={sort('order')}>
+                  {/* <th className="hand" onClick={sort('order')}>
                     <Translate contentKey="npsSurveyApp.question.order">Order</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
+                  </th> */}
                   <th className="hand" onClick={sort('createdAt')}>
                     <Translate contentKey="npsSurveyApp.question.createdAt">Created At</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -157,7 +157,7 @@ export const Question = (props: RouteComponentProps<{ url: string }>) => {
                     <td>
                       <Translate contentKey={`npsSurveyApp.QuestionType.${question.type}`} />
                     </td>
-                    <td>{question.order}</td>
+                    {/* <td>{question.order}</td> */}
                     <td>
                       {question.createdAt ? <TextFormat type="date" value={question.createdAt} format={APP_LOCAL_DATE_FORMAT} /> : null}
                     </td>

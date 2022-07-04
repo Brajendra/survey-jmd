@@ -1,6 +1,9 @@
 package com.reliance.retail.nps.service.impl;
 
+import com.reliance.retail.nps.domain.Answer;
 import com.reliance.retail.nps.domain.Question;
+import com.reliance.retail.nps.domain.enumeration.QuestionType;
+import com.reliance.retail.nps.repository.AnswerRepository;
 import com.reliance.retail.nps.repository.QuestionRepository;
 import com.reliance.retail.nps.service.QuestionService;
 import com.reliance.retail.nps.service.dto.QuestionDTO;
@@ -8,6 +11,8 @@ import com.reliance.retail.nps.service.mapper.QuestionMapper;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -27,10 +32,12 @@ public class QuestionServiceImpl implements QuestionService {
     private final QuestionRepository questionRepository;
 
     private final QuestionMapper questionMapper;
+    private final AnswerRepository answerRepository;
 
-    public QuestionServiceImpl(QuestionRepository questionRepository, QuestionMapper questionMapper) {
+    public QuestionServiceImpl(QuestionRepository questionRepository, QuestionMapper questionMapper, AnswerRepository answerRepository) {
         this.questionRepository = questionRepository;
         this.questionMapper = questionMapper;
+        this.answerRepository = answerRepository;
     }
 
     @Override
@@ -86,6 +93,15 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public Optional<List<QuestionDTO>> findQuestionByCampaignId(Long id) {
-        return questionRepository.findByCampaignId(id).map(questionMapper::toDto);
+        return questionRepository.findByCampaignId(id).map(questionMapper::toDto)
+            .map(questionDTOS -> {
+                for(QuestionDTO question: questionDTOS) {
+                    if(question.getAnswers().isEmpty() && (question.getType() == QuestionType.MultiSelect || question.getType() == QuestionType.SingleSelect)) {
+                        Set<Answer> answers = answerRepository.findByQuestionId(question.getId()).get();
+                        question.setAnswers(answers);
+                    }
+                }
+                return questionDTOS;
+            });
     }
 }
