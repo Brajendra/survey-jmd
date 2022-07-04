@@ -88,17 +88,18 @@ public class AnalyticsResource {
         Map<Long, AnalyticsChatDataDTO> map = new HashMap<>();
         for(AnalyticsDTO dto : analyticsDTOS){
             AnalyticsChatDataDTO analyticsChatDataDTO = map.getOrDefault(dto.getCampaignId(), new AnalyticsChatDataDTO());
+            if(analyticsChatDataDTO.getAttempted()==null)
+                analyticsChatDataDTO.setAttempted(0L);
+            if(analyticsChatDataDTO.getSubmitted()==null)
+               analyticsChatDataDTO.setSubmitted(0L);
+
             if(nonNull(dto.getEvent())){
                 if(dto.getEvent().trim().equalsIgnoreCase("CAMPAIGN_ATTEMPTED")){
                     Long attempted = analyticsChatDataDTO.getAttempted();
-                    if(attempted==null)
-                        attempted = 0L;
                     attempted++;
                     analyticsChatDataDTO.setAttempted(attempted);
                 }else{
                     Long submitted = analyticsChatDataDTO.getSubmitted();
-                    if(submitted==null)
-                        submitted = 0L;
                     submitted++;
                     analyticsChatDataDTO.setSubmitted(submitted);
                 }
@@ -118,6 +119,9 @@ public class AnalyticsResource {
             Long id = ((BigInteger)o[1]).longValue();
             Long sum = ((BigDecimal)o[2]).longValue();
             AnalyticsChatDataDTO analyticsChatDataDTO = map.getOrDefault(id, new AnalyticsChatDataDTO());
+            if(sum==null){
+                sum = 0L;
+            }
             analyticsChatDataDTO.setPublished(sum);
             analyticsChatDataDTO.setTitle(name);
             map.put(id,analyticsChatDataDTO);
