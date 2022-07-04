@@ -114,14 +114,14 @@ export const QuestionUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 name="order"
                 data-cy="order"
                 type="text"
+                hidden={true}
               />
               <ValidatedField
                 label={translate('npsSurveyApp.question.createdAt')}
                 id="question-createdAt"
                 name="createdAt"
                 data-cy="createdAt"
-                editable={false}
-                disabled={true}
+                hidden={true}
                 type="date"
               />
               <ValidatedField
@@ -129,8 +129,7 @@ export const QuestionUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 id="question-updatedAt"
                 name="updatedAt"
                 data-cy="updatedAt"
-                editable={false}
-                disabled={true}
+                hidden={true}
                 type="date"
               />
               <ValidatedField

@@ -97,8 +97,9 @@ export const CampaignLinkUpdate = (props: RouteComponentProps<{ id: string }>) =
                 editable={false}
                 disabled={true}
                 value ={"code"}
+                hidden={true}
                 validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
+                  required: { value: false, message: translate('entity.validation.required') },
                 }}
               />
               <ValidatedField
@@ -107,6 +108,7 @@ export const CampaignLinkUpdate = (props: RouteComponentProps<{ id: string }>) =
                 name="attemptQuestionCount"
                 data-cy="attemptQuestionCount"
                 editable={false}
+                hidden={true}
                 disabled={true}
                 type="text"
               />
@@ -116,6 +118,7 @@ export const CampaignLinkUpdate = (props: RouteComponentProps<{ id: string }>) =
                 name="eventType"
                 data-cy="eventType"
                 type="text"
+                hidden={true}
               />
               <ValidatedField
                 label={translate('npsSurveyApp.campaignLink.eventId')}
@@ -123,6 +126,7 @@ export const CampaignLinkUpdate = (props: RouteComponentProps<{ id: string }>) =
                 name="eventId"
                 data-cy="eventId"
                 type="text"
+                hidden={true}
               />
               <ValidatedField
                 label={translate('npsSurveyApp.campaignLink.userInfo')}
@@ -136,6 +140,7 @@ export const CampaignLinkUpdate = (props: RouteComponentProps<{ id: string }>) =
                 id="campaign-link-createdAt"
                 name="createdAt"
                 data-cy="createdAt"
+                hidden={true}
                 editable={false}
                 disabled={true}
                 type="date"
@@ -145,6 +150,7 @@ export const CampaignLinkUpdate = (props: RouteComponentProps<{ id: string }>) =
                 id="campaign-link-updatedAt"
                 name="updatedAt"
                 data-cy="updatedAt"
+                hidden={true}
                 editable={false}
                 disabled={true}
                 type="date"

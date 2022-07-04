@@ -42,12 +42,12 @@ export const QuestionDetail = (props: RouteComponentProps<{ id: string }>) => {
             </span>
           </dt>
           <dd>{questionEntity.type}</dd>
-          <dt>
+          {/* <dt>
             <span id="order">
               <Translate contentKey="npsSurveyApp.question.order">Order</Translate>
             </span>
           </dt>
-          <dd>{questionEntity.order}</dd>
+          <dd>{questionEntity.order}</dd> */}
           <dt>
             <span id="createdAt">
               <Translate contentKey="npsSurveyApp.question.createdAt">Created At</Translate>
