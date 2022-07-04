@@ -8,7 +8,10 @@ import com.reliance.retail.nps.service.dto.CampaignLinkDTO;
 import com.reliance.retail.nps.service.mapper.CampaignLinkMapper;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -24,6 +27,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class CampaignLinkServiceImpl implements CampaignLinkService {
 
     private final Logger log = LoggerFactory.getLogger(CampaignLinkServiceImpl.class);
+
+   private final String  EMAIL_REGEX_PATTERN = "[\\\\w!#$%&'*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}";
 
     private final CampaignLinkRepository campaignLinkRepository;
 
@@ -110,6 +115,14 @@ public class CampaignLinkServiceImpl implements CampaignLinkService {
 
 
     private void sendEmail(CampaignLink campaignLink) {
-        mailService.sendEmail(campaignLink.getUserInfo(),"NPS Survey",  campaignLink.getCode(), false, false);
+
+        if(StringUtils.isNoneEmpty(campaignLink.getUserInfo())) {
+            Pattern pattern = Pattern.compile(EMAIL_REGEX_PATTERN);
+            Matcher matcher = pattern.matcher(campaignLink.getUserInfo());
+            if(matcher.matches()) {
+                mailService.sendEmail(campaignLink.getUserInfo(),"NPS Survey",  campaignLink.getCode(), false, false);
+            }
+        }
+
     }
 }
