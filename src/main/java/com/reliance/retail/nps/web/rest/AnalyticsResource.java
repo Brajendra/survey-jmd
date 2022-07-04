@@ -117,7 +117,7 @@ public class AnalyticsResource {
             Object[] o = (Object[]) obj;
             String name =  (String)o[0];
             Long id = ((BigInteger)o[1]).longValue();
-            Long sum = ((BigDecimal)o[2]).longValue();
+            Long sum = ((BigInteger)o[2]).longValue();
             AnalyticsChatDataDTO analyticsChatDataDTO = map.getOrDefault(id, new AnalyticsChatDataDTO());
             if(sum==null){
                 sum = 0L;
