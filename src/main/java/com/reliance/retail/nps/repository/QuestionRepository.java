@@ -14,7 +14,7 @@ import java.util.Optional;
 @SuppressWarnings("unused")
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
-  /*  @Query(value = "select * from question q Left JOIN answer ON q.id = answer.question_id where q.campaign_id = :campaignId", nativeQuery = true)
-    Optional<List<Question>> getByCampaignId(@Param("campaignId") final Long campaignId);*/
+   @Query(value = "select * from question q Left JOIN answer ON q.id = answer.question_id where q.campaign_id = :campaignId", nativeQuery = true)
+    Optional<List<Question>> getByCampaignId(@Param("campaignId") final Long campaignId);
     Optional<List<Question>> findByCampaignId(final Long campaignId);
 }
