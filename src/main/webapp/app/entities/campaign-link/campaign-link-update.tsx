@@ -94,6 +94,9 @@ export const CampaignLinkUpdate = (props: RouteComponentProps<{ id: string }>) =
                 name="code"
                 data-cy="code"
                 type="text"
+                editable={false}
+                disabled={true}
+                value ={"code"}
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
@@ -103,6 +106,8 @@ export const CampaignLinkUpdate = (props: RouteComponentProps<{ id: string }>) =
                 id="campaign-link-attemptQuestionCount"
                 name="attemptQuestionCount"
                 data-cy="attemptQuestionCount"
+                editable={false}
+                disabled={true}
                 type="text"
               />
               <ValidatedField
@@ -131,6 +136,8 @@ export const CampaignLinkUpdate = (props: RouteComponentProps<{ id: string }>) =
                 id="campaign-link-createdAt"
                 name="createdAt"
                 data-cy="createdAt"
+                editable={false}
+                disabled={true}
                 type="date"
               />
               <ValidatedField
@@ -138,6 +145,8 @@ export const CampaignLinkUpdate = (props: RouteComponentProps<{ id: string }>) =
                 id="campaign-link-updatedAt"
                 name="updatedAt"
                 data-cy="updatedAt"
+                editable={false}
+                disabled={true}
                 type="date"
               />
               <ValidatedField

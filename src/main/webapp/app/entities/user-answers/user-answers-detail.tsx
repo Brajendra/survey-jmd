@@ -70,12 +70,12 @@ export const UserAnswersDetail = (props: RouteComponentProps<{ id: string }>) =>
           </span>
         </Button>
         &nbsp;
-        <Button tag={Link} to={`/user-answers/${userAnswersEntity.id}/edit`} replace color="primary">
+        {/* <Button tag={Link} to={`/user-answers/${userAnswersEntity.id}/edit`} replace color="primary">
           <FontAwesomeIcon icon="pencil-alt" />{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.edit">Edit</Translate>
           </span>
-        </Button>
+        </Button> */}
       </Col>
     </Row>
   );
