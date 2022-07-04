@@ -1,15 +1,17 @@
 package com.reliance.retail.nps.service.impl;
 
+import com.reliance.retail.nps.domain.Answer;
 import com.reliance.retail.nps.domain.Campaign;
+import com.reliance.retail.nps.domain.enumeration.QuestionType;
+import com.reliance.retail.nps.repository.AnswerRepository;
 import com.reliance.retail.nps.repository.CampaignLinkRepository;
 import com.reliance.retail.nps.repository.CampaignRepository;
 import com.reliance.retail.nps.service.CampaignService;
 import com.reliance.retail.nps.service.QuestionService;
 import com.reliance.retail.nps.service.dto.CampaignDTO;
 import com.reliance.retail.nps.service.dto.CampaignDetailDTO;
+import com.reliance.retail.nps.service.dto.QuestionDTO;
 import com.reliance.retail.nps.service.mapper.CampaignMapper;
-import java.util.Optional;
-
 import com.reliance.retail.nps.web.rest.errors.BadRequestAlertException;
 import com.reliance.retail.nps.web.rest.errors.CampaignCompletedException;
 import org.slf4j.Logger;
@@ -18,6 +20,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service Implementation for managing {@link Campaign}.
@@ -33,12 +38,14 @@ public class CampaignServiceImpl implements CampaignService {
     private final CampaignMapper campaignMapper;
     private final QuestionService questionService;
     private final CampaignLinkRepository campaignLinkRepository;
+    private final AnswerRepository answerRepository;
 
-    public CampaignServiceImpl(CampaignRepository campaignRepository, CampaignMapper campaignMapper, QuestionService questionService, CampaignLinkRepository campaignLinkRepository) {
+    public CampaignServiceImpl(CampaignRepository campaignRepository, CampaignMapper campaignMapper, QuestionService questionService, CampaignLinkRepository campaignLinkRepository, AnswerRepository answerRepository) {
         this.campaignRepository = campaignRepository;
         this.campaignMapper = campaignMapper;
         this.questionService  = questionService;
         this.campaignLinkRepository = campaignLinkRepository;
+        this.answerRepository = answerRepository;
     }
 
     @Override
@@ -110,6 +117,15 @@ public class CampaignServiceImpl implements CampaignService {
                     return   campaignRepository
                         .findById(campaignLink.getCampaign().getId())
                         .flatMap(campaign -> questionService.findQuestionByCampaignId(campaign.getId())
+                            .map(questionDTOS -> {
+                                for(QuestionDTO question: questionDTOS) {
+                                    if(question.getAnswers().isEmpty() && (question.getType() == QuestionType.MultiSelect || question.getType() == QuestionType.SingleSelect)) {
+                                        Set<Answer> answers = answerRepository.findByQuestionId(question.getId()).get();
+                                        question.setAnswers(answers);
+                                    }
+                                }
+                                return questionDTOS;
+                            })
                             .map(questions -> {
                                 CampaignDetailDTO campaignDetails = new CampaignDetailDTO();
                                 campaignDetails.setCampaign(campaignMapper.toDto(campaign));
